@@ -3,15 +3,16 @@
 
 ##Removing stopped container
 
-docker ps -a | grep Exited | awk '{print $1}' | xargs docker rm
+#docker ps -a | grep Exited | awk '{print $1}' | xargs docker rm
 
 ##If you do not want to remove all container you can have filter for days and weeks old like below
 #docker ps -a | grep Exited | grep "days ago" | awk '{print $1}' | xargs docker rm
 #docker ps -a | grep Exited | grep "weeks ago" | awk '{print $1}' | xargs docker rm
+docker ps -a | grep Exited | grep "months ago" | awk '{print $1}' | xargs docker rm
 
 ##Removing Dangling images
 ##There are the layers images which are being created during building docker image. This is a great way to recover the spaces used by old and unused layers.
-
+# may need to force rmi command (-f)
 docker rmi $(docker images -f "dangling=true" -q)
 
 ##Removing images of perticular pattern For example
